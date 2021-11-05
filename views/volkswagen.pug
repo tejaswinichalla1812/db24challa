@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+   - var results = [{"cost":25990,"model":"volkswagen golf","color":"white"},{"cost":22990,"model":"volkswagen jetta","color":"blue"},{"cost":24990,"model":"volkswagen tiguan","color":"black"}]
+  div(class="container-fuild")
+    div(class="row")
+      each result,index in results
+        div(class = "col-sm-2" id=index onclick=`age(${index})`) 
+          p #{result.cost}
+          p #{result.model}
+          p #{result.color}
+
+          
+  script.
+    function age(element){
+      alert(`car place is ${element+1}.`)
+    }
