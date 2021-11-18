@@ -39,10 +39,18 @@ exports.costume_create_post = async function(req, res) {
 }; 
  
 // Handle Costume delete form on DELETE. 
-exports.costume_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Costume delete DELETE ' + req.params.id); 
+exports.costume_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Costume.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
 }; 
- 
+
 //Handle Costume update form on PUT. 
 exports.costume_update_put = async function(req, res) { 
     console.log(`update on id ${req.params.id} with body 
@@ -84,4 +92,43 @@ exports.costume_detail = async function(req, res) {
         res.status(500) 
         res.send(`{"error": document for id ${req.params.id} not found`); 
     }
+};
+// Handle a show one view with id specified by query 
+exports.costume_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Costume.findById( req.query.id) 
+        res.render('costumedetail',  
+{ title: 'Costume Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle building the view for creating a costume. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.costume_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('costumecreate', { title: 'Costume Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle building the view for updating a costume. 
+// query provides the id 
+exports.costume_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Costume.findById(req.query.id) 
+        res.render('costumeupdate', { title: 'Costume Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
 };
