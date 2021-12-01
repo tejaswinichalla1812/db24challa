@@ -1,23 +1,35 @@
-extends layout
-
 block content
+    h1= title
+    - var list = results 
+    div 
+        a(class="btn btn-primary", style="margin-right:5px", href=`/costume/create`) Add New Costume
 
-  div(class="container-fluid")
-  h1= title
-  - let items=results
-      div(class="container-fluid")
-        
-        div(class="row m-1")
-        each item in items
-          - let destination = `dispatch(\"/costumes/update?id=${item._id}\")`
-          div(class="row-sm-2 m-1")  #{item.costume_type} - #{item.size} - #{item.cost}
-            button.btn( class="btn-success ml-1", onclick= destination) update
-    
-  script.
-       function dispatch(path) {
-         window.location.href = path
-       }
-      function buy(itemNo)
-      {
-        alert(`You purchased Item ${itemNo+1}`)
-      } 
+    table(class="table table-stripped table-bordered")
+        thead 
+            tr 
+                td Costume Type
+                td Size 
+                td Cost
+                td Action
+        tbody 
+            each item in list 
+             -let destination = `dispatch(\"/costumes/update?id=${item._id}\")` 
+             -let dst=`disp(\"/costumes/delete?id=${item._id}\")`
+                tr
+                    td #{item.costume_type}
+                    td #{item.size}
+                    td #{item.cost}
+                    td 
+                        div(class="d-flex ")
+                            a(class="btn btn-primary", style="margin-right:5px", href=` /costume/detail?id=${item.id}`) Details
+                            a(class="btn btn-secondary", style="margin-right:5px", href=` /costume/update?id=${item.id}`) Edit 
+                            button.btn( class="btn-primary ml-1", onclick= dst) Delete
+                            button.btn( class="btn-primary ml-1", onclick= destination) Update    
+
+    script. 
+     function dispatch(path){ 
+      window.location.href=path 
+     } 
+     function disp(path){ 
+      window.location.href=path 
+     } 

@@ -1,18 +1,14 @@
-extends layout
+extends layout 
 
-block content
-  h1= title
-  p Welcome to #{title}
-  button(type="button", class="btn btn-secondary", onclick="update()") Press Me
-  div(id="target") Display
-  a(Type="button", href="/volkswagen") Link to volkswagen list
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/costumes") Take me to costumes 
+    br 
+    a(href="/logout") Logout 
 
-  
-  script.
-    let client_count = 0;
-    function update()
-    {
-      client_count = client_count+1;
-      document.getElementById("target").innerHTML ="Value now " + client_count;
-    };
   
