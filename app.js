@@ -84,9 +84,9 @@ async function recreateDB(){
   // Delete everything 
   await Costume.deleteMany(); 
  
-  let instance1 = new Costume({costume_type:"ghost",  size:'large', cost:125.4}); 
-  let instance2 = new Costume({costume_type:"batman",  size:'Medium', cost:136.4}); 
-  let instance3 = new Costume({costume_type:"antman",  size:'small', cost:142.6}); 
+  let instance1 = new Costume({costume_type:"ghost",  size:'large', cost:25.4}); 
+  let instance2 = new Costume({costume_type:"batman",  size:'Medium', cost:36.4}); 
+  let instance3 = new Costume({costume_type:"antman",  size:'small', cost:42.6}); 
 
   instance1.save( function(err,doc) { 
       if(err) return console.error(err); 

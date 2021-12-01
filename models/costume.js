@@ -7,7 +7,7 @@ const costumeSchema = mongoose.Schema({
 },  
  cost: {
     type: Number,
-    min: 70,
+    min: 20,
    max: 700
 } 
 }) 
