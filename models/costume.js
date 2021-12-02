@@ -3,7 +3,8 @@ const costumeSchema = mongoose.Schema({
  costume_type: String, 
  size: {
     type: String,
-    maxlength: 10
+    maxlength: 10,
+    minlength: 05
 },  
  cost: {
     type: Number,
